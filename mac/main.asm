@@ -8,9 +8,9 @@ global start
 
 start:
 	mov rax, msg
-	call strlen
+	call sprint
 
-	mov rax, rdx
+	mov rax, 0
 	call exit
 
 SECTION .data

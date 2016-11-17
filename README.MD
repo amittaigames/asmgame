@@ -18,7 +18,7 @@ should also have Make installed.
 ### Conventions
 
 ##### Functions
-	* Arguments should go in system call argument order
-	* Return value should be in the D register
-	* The C version of the function should be documented above
-	* To make this a learning experience for others, comment code!
+* Arguments should go in system call argument order
+* Return value should be in the D register
+* The C version of the function should be documented above
+* To make this a learning experience for others, comment code!

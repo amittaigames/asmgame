@@ -6,6 +6,7 @@
 ;-----------------------------------
 
 SYS_EXIT: equ			0x2000001
+SYS_READ: equ			0x2000003
 SYS_WRITE: equ			0x2000004
 
 ;-----------------------------------
@@ -52,6 +53,28 @@ sprint:
 	mov rsi, rax				; Move string to syscall arg
 	mov rdi, 1					; Standard output
 	mov rax, SYS_WRITE			; System call
+	syscall
+
+	pop rdx						; Restore registers
+	pop rsi
+	pop rdi
+	pop rax
+
+	ret
+
+;-----------------------------------
+;	void gets(char* dest, int size)
+;-----------------------------------
+gets:
+	push rax					; Store registers
+	push rdi
+	push rsi
+	push rdx
+
+	mov rdx, rbx				; Store length in syscall arg
+	mov rsi, rax				; Store string location in syscall arg
+	mov rdi, 0					; Standard input
+	mov rax, SYS_READ			; System call
 	syscall
 
 	pop rdx						; Restore registers

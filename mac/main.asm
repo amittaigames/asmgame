@@ -7,8 +7,11 @@ SECTION .text
 global start
 
 start:
-	mov rax, 0
+	mov rax, msg
+	call strlen
+
+	mov rax, rdx
 	call exit
 
 SECTION .data
-null: db 0x0		; Needed for Mac compilation
+msg: db "Hello World!",10,0

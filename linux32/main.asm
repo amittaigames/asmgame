@@ -8,9 +8,9 @@ global _start
 
 _start:
     mov eax, msg
-    call strlen
+    call sprint
 
-    mov eax, edx
+    mov eax, 0
     call exit
     
 SECTION .data

@@ -6,6 +6,7 @@
 ;-----------------------------------
 
 SYS_EXIT: equ           0x0001
+SYS_WRITE: equ          0x0004
 
 ;-----------------------------------
 ;   void exit(int code)
@@ -35,4 +36,26 @@ strlen:
     sub eax, ecx                ; Set string pointer back
     mov edx, ecx                ; Set return value
     pop ecx                     ; Restore registers
+    ret
+    
+;-----------------------------------
+;   void sprint(char* str)
+;-----------------------------------
+sprint:
+    push eax                    ; Store registers
+    push ebx
+    push ecx
+    push edx
+    
+    call strlen                 ; Get string length in EDX
+    mov ecx, eax                ; Move string to system call argument
+    mov ebx, 1                  ; Standard output
+    mov eax, SYS_WRITE          ; System call
+    int 0x80
+    
+    pop edx                     ; Restore registers
+    pop ecx
+    pop ebx
+    pop eax
+    
     ret

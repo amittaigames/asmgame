@@ -1,13 +1,18 @@
 # Makefile
 # Mac OS X
 
+LD = ld
+AS = nasm
+LD_OPT =
+AS_OPT = -f macho64
+
 all: main
 
 main: main.o
-	ld $< -o $@
+	$(LD) $< -o $@
 
 main.o: main.asm
-	nasm -f macho64 $< -o $@
+	$(AS) -f macho64 $< -o $@
 
 clean:
 	rm main.o main

@@ -6,6 +6,7 @@
 ;-----------------------------------
 
 SYS_EXIT: equ           0x0001
+SYS_READ: equ           0x0003
 SYS_WRITE: equ          0x0004
 
 ;-----------------------------------
@@ -51,6 +52,28 @@ sprint:
     mov ecx, eax                ; Move string to system call argument
     mov ebx, 1                  ; Standard output
     mov eax, SYS_WRITE          ; System call
+    int 0x80
+    
+    pop edx                     ; Restore registers
+    pop ecx
+    pop ebx
+    pop eax
+    
+    ret
+    
+;-----------------------------------
+;   void gets(char* dest, int size)
+;-----------------------------------
+gets:
+    push eax                    ; Store registers
+    push ebx
+    push ecx
+    push edx
+    
+    mov edx, ebx                ; Set last system call arg to function arg
+    mov ecx, eax                ; Set system call string to function arg
+    mov ebx, 0                  ; Standard input
+    mov eax, SYS_READ           ; System call
     int 0x80
     
     pop edx                     ; Restore registers

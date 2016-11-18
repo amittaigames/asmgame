@@ -62,6 +62,21 @@ sprint:
     ret
     
 ;-----------------------------------
+;   void sprintNL()
+;-----------------------------------
+sprintNL:
+    push eax
+    
+    mov eax, 10
+    push eax
+    mov eax, esp
+    call sprint
+    pop eax
+    
+    pop eax
+    ret
+    
+;-----------------------------------
 ;   void gets(char* dest, int size)
 ;-----------------------------------
 gets:
@@ -141,5 +156,5 @@ strcmp:
 ;   void setChar(char* a, char c, int index)
 ;-----------------------------------
 setChar:
-    mov [eax + ecx], ebx
+    mov [eax + ecx], ebx        ; Set the string pointer offset to char
     ret

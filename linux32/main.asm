@@ -27,6 +27,7 @@ _start:
     
     mov eax, name
     call sprint
+    call sprintNL
     
     mov eax, 0
     call exit

@@ -83,3 +83,56 @@ gets:
 	pop rax
 
 	ret
+
+;-----------------------------------
+;	int strEquals(char* a, char* b)
+;-----------------------------------
+strEquals:
+	push rax					; Store registers
+	push rbx
+	push rcx
+
+	call strlen					; Get string length for A
+	push rax					; Push the string
+	push rdx					; Push the length
+
+	mov rax, rbx				; Get the second string
+	call strlen					; Get string length for B
+
+	pop rcx						; Length A is in RCX
+	cmp rcx, rdx				; Compare the lengths
+	jne .ne2					; If not equal, end
+
+	pop rax						; Get string A back to RAX
+	mov rcx, 0					; Begin counter
+
+.charLoop:
+	cmp rcx, rdx				; Compare the counter and the length
+	je .done					; If they're the same, finish
+
+	mov al, [rax + rcx]
+	mov bl, [rbx + rcx]
+	cmp al, bl					; Compare the characters
+	jne .ne						; If not equal, end
+
+	inc rcx						; Increment counter
+	jmp .charLoop				; Start over
+
+.ne2:
+	pop rax
+
+.ne:
+	pop rcx						; Restore registers
+	pop rbx
+	pop rax
+
+	mov rdx, 0					; Return false
+	ret
+
+.done:
+	pop rcx						; Restore registers
+	pop rbx
+	pop rax
+
+	mov rdx, 1					; Return true
+	ret

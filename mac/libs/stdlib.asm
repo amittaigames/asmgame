@@ -85,9 +85,9 @@ gets:
 	ret
 
 ;-----------------------------------
-;	int strEquals(char* a, char* b)
+;	int strcmp(char* a, char* b)
 ;-----------------------------------
-strEquals:
+strcmp:
 	push rax					; Store registers
 	push rbx
 	push rcx

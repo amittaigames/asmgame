@@ -86,7 +86,7 @@ gets:
 ;-----------------------------------
 ;   int strEquals(char* a, char* b)
 ;-----------------------------------
-strEquals:
+strcmp:
     push eax                    ; Store registers
     push ebx
     push ecx

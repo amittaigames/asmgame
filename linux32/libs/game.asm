@@ -7,6 +7,6 @@
 nameEasterEgg:
     mov eax, name
     mov ebx, egg_name
-    call strEquals
+    call strcmp
     
     ret

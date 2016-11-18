@@ -82,3 +82,56 @@ gets:
     pop eax
     
     ret
+    
+;-----------------------------------
+;   int strEquals(char* a, char* b)
+;-----------------------------------
+strEquals:
+    push eax                    ; Store registers
+    push ebx
+    push ecx
+    
+    call strlen                 ; Get string length for A
+    push eax                    ; Store string
+    push edx                    ; Store length
+    
+    mov eax, ebx                ; Move string B to function arg
+    call strlen                 ; Get string length for B
+    
+    pop ecx                     ; Get A length
+    cmp ecx, edx                ; Compare lengths
+    jne .ne2                    ; If not equal, end
+    
+    pop eax                     ; Get string back
+    mov ecx, 0                  ; Begin counter
+    
+.charLoop:
+    cmp ecx, edx                ; Compare counter and length
+    je .done                    ; If end of string, finish
+    
+    mov al, [eax + ecx]         ; Check character from string A
+    mov bl, [ebx + ecx]         ; Check character from string B
+    cmp al, bl                  ; Check if same
+    jne .ne                     ; If different, jump somewhere else
+    
+    inc ecx                     ; Increment counter
+    jmp .charLoop               ; Start over
+    
+.ne2:
+    pop eax                     ; Restore push
+    
+.ne:
+    pop ecx                     ; Restore registers
+    pop ebx
+    pop eax
+    
+    mov edx, 0                  ; Set return value to false
+    ret
+    
+.done:
+    pop ecx                     ; Restore registers
+    pop ebx
+    pop eax
+    
+    mov edx, 1                  ; Set return value to true
+    ret

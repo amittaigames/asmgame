@@ -5,17 +5,17 @@
 ;	int nameEasterEgg()
 ;-----------------------------------
 nameEasterEgg:
-	mov rax, name
-	mov rbx, egg_name
-	call strEquals
+	mov rax, name				; Set first arg to name
+	mov rbx, egg_name			; Set second to easter egg name
+	call strEquals				; Compare strings
 
-	cmp edx, 0
-	je .no
+	cmp edx, 0					; Compare return value
+	je .no						; If false, jump to no
 
 .yes:
-	mov edx, 1
+	mov edx, 1					; Return true
 	ret
 
 .no:
-	mov edx, 0
+	mov edx, 0					; Return false
 	ret

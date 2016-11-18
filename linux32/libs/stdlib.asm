@@ -135,3 +135,11 @@ strcmp:
     
     mov edx, 1                  ; Set return value to true
     ret
+    
+        
+;-----------------------------------
+;   void setChar(char* a, char c, int index)
+;-----------------------------------
+setChar:
+    mov [eax + ecx], ebx
+    ret

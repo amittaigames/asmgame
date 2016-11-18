@@ -4,9 +4,9 @@
 ;-----------------------------------
 ;   int nameEasterEgg()
 ;-----------------------------------
-nameEasterEgg:
-    mov eax, name
-    mov ebx, egg_name
-    call strcmp
+;nameEasterEgg:
+    ;mov eax, name
+    ;mov ebx, egg_name
+    ;call strcmp
     
-    ret
+    ;ret

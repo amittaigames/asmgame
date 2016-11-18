@@ -63,6 +63,21 @@ sprint:
 	ret
 
 ;-----------------------------------
+;	void sprintNL()
+;-----------------------------------
+sprintNL:
+	push rax
+
+	mov rax, 10
+	push rax
+	mov rax, rsp
+	call sprint
+	pop rax
+
+	pop rax
+	ret
+
+;-----------------------------------
 ;	void gets(char* dest, int size)
 ;-----------------------------------
 gets:
@@ -135,4 +150,11 @@ strcmp:
 	pop rax
 
 	mov rdx, 1					; Return true
+	ret
+
+;-----------------------------------
+;	void setChar(char* str, char c, int index)
+;-----------------------------------
+setChar:
+	mov [rax + rcx], rbx
 	ret

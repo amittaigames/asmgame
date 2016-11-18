@@ -15,6 +15,12 @@ start:
 	mov rbx, 256
 	call gets
 
+	call strlen
+	mov rbx, 0
+	mov rcx, rdx
+	sub rcx, 1
+	call setChar
+
 	call nameEasterEgg
 	cmp edx, 1
 	je easter
@@ -23,6 +29,7 @@ start:
 	call sprint
 	mov rax, name
 	call sprint
+	call sprintNL
 
 	mov rax, 0
 	call exit
@@ -45,7 +52,7 @@ hi: db "Hello ",0
 ;-----------------------------------
 ;	Easter Eggs
 ;-----------------------------------
-egg_name: db "Bob Saggit",10,0
+egg_name: db "Bob Saggit",0
 egg_name_yes: db "DUDE YES",10,0
 
 ;-----------------------------------

@@ -66,15 +66,15 @@ sprint:
 ;	void sprintNL()
 ;-----------------------------------
 sprintNL:
-	push rax
+	push rax					; Store registers
 
-	mov rax, 10
-	push rax
-	mov rax, rsp
-	call sprint
-	pop rax
+	mov rax, 10					; Move new line to RAX
+	push rax					; Push new line
+	mov rax, rsp				; Get new line from stack pointer
+	call sprint					; Print it
+	pop rax						; Pop the new line
 
-	pop rax
+	pop rax						; Restore registers
 	ret
 
 ;-----------------------------------
@@ -156,5 +156,5 @@ strcmp:
 ;	void setChar(char* str, char c, int index)
 ;-----------------------------------
 setChar:
-	mov [rax + rcx], rbx
+	mov [rax + rcx], rbx		; Set the string pointer offset to char
 	ret

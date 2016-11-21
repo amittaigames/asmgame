@@ -1,26 +1,30 @@
 ; Standard library
 ; Linux 32 bit
 
-;-----------------------------------
+;----------------------------------------------------------------------
 ;   SYSTEM CALLS
-;-----------------------------------
+;----------------------------------------------------------------------
 
 SYS_EXIT: equ           0x0001
 SYS_READ: equ           0x0003
 SYS_WRITE: equ          0x0004
 
-;-----------------------------------
+;----------------------------------------------------------------------
 ;   void exit(int code)
-;-----------------------------------
+;
+;   Exits the program
+;----------------------------------------------------------------------
 exit:
     mov ebx, eax                ; Move function arg to system call arg
     mov eax, SYS_EXIT           ; System call
     int 0x80
     ret
 
-;-----------------------------------
+;----------------------------------------------------------------------
 ;   int strlen(char* str)
-;-----------------------------------
+;
+;   Returns the length of a string
+;----------------------------------------------------------------------
 strlen:
     push ecx                    ; Store registers
     mov ecx, 0                  ; Set counter
@@ -39,9 +43,11 @@ strlen:
     pop ecx                     ; Restore registers
     ret
 
-;-----------------------------------
+;----------------------------------------------------------------------
 ;   void sprint(char* str)
-;-----------------------------------
+;
+;   Prints a string
+;----------------------------------------------------------------------
 sprint:
     push eax                    ; Store registers
     push ebx
@@ -61,9 +67,11 @@ sprint:
 
     ret
 
-;-----------------------------------
+;----------------------------------------------------------------------
 ;   void sprintNL()
-;-----------------------------------
+;
+;   Prints a new line character
+;----------------------------------------------------------------------
 sprintNL:
     push eax					; Store registers
 
@@ -76,9 +84,11 @@ sprintNL:
     pop eax						; Restore registers
     ret
 
-;-----------------------------------
+;----------------------------------------------------------------------
 ;   void gets(char* dest, int size)
-;-----------------------------------
+;
+;   Gets string from standard input (removes new line)
+;----------------------------------------------------------------------
 gets:
     push eax                    ; Store registers
     push ebx
@@ -90,6 +100,13 @@ gets:
     mov ebx, 0                  ; Standard input
     mov eax, SYS_READ           ; System call
     int 0x80
+    
+    mov eax, ecx                ; Get string back
+    mov ebx, 0                  ; Null character
+    call strlen                 ; Get string length
+    mov ecx, edx                ; Move length to 3rd param
+    sub ecx, 1                  ; Subtract to new line
+    call setChar                ; Set the new line to null char
 
     pop edx                     ; Restore registers
     pop ecx
@@ -98,9 +115,11 @@ gets:
 
     ret
 
-;-----------------------------------
+;----------------------------------------------------------------------
 ;   int strEquals(char* a, char* b)
-;-----------------------------------
+;
+;   Compares strings
+;----------------------------------------------------------------------
 strcmp:
     push eax                    ; Store registers
     push ebx
@@ -152,9 +171,11 @@ strcmp:
     ret
 
 
-;-----------------------------------
+;----------------------------------------------------------------------
 ;   void setChar(char* a, char c, int index)
-;-----------------------------------
+;
+;   Sets a charater in a string
+;----------------------------------------------------------------------
 setChar:
     mov [eax + ecx], ebx        ; Set the string pointer offset to char
     ret

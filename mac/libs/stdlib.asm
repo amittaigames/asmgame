@@ -9,18 +9,22 @@ SYS_EXIT: equ			0x2000001
 SYS_READ: equ			0x2000003
 SYS_WRITE: equ			0x2000004
 
-;-----------------------------------
+;----------------------------------------------------------------------
 ;	void exit(int code)
-;-----------------------------------
+;
+;	Exit the program
+;----------------------------------------------------------------------
 exit:
 	mov rdi, rax				; Move function arg to syscall arg
 	mov rax, SYS_EXIT			; Set system call
 	syscall						; Syscall
 	ret
 
-;-----------------------------------
+;----------------------------------------------------------------------
 ;	int strlen(char* str)
-;-----------------------------------
+;
+;	Get the length of a string
+;----------------------------------------------------------------------
 strlen:
 	push rcx					; Store register
 	mov rcx, 0					; Set counter
@@ -39,9 +43,11 @@ strlen:
 	pop rcx						; Restore register
 	ret
 
-;-----------------------------------
+;----------------------------------------------------------------------
 ;	void sprint(char* str)
-;-----------------------------------
+;
+;	Print a string
+;----------------------------------------------------------------------
 sprint:
 	push rax					; Store registers
 	push rdi
@@ -62,9 +68,11 @@ sprint:
 
 	ret
 
-;-----------------------------------
+;----------------------------------------------------------------------
 ;	void sprintNL()
-;-----------------------------------
+;
+;	Print a new line
+;----------------------------------------------------------------------
 sprintNL:
 	push rax					; Store registers
 
@@ -77,9 +85,11 @@ sprintNL:
 	pop rax						; Restore registers
 	ret
 
-;-----------------------------------
+;----------------------------------------------------------------------
 ;	void gets(char* dest, int size)
-;-----------------------------------
+;
+;	Get a string from standard input (removes new line)
+;----------------------------------------------------------------------
 gets:
 	push rax					; Store registers
 	push rdi
@@ -91,6 +101,13 @@ gets:
 	mov rdi, 0					; Standard input
 	mov rax, SYS_READ			; System call
 	syscall
+	
+	mov rax, rcx				; Move string
+	mov rbx, 0					; Null char
+	call strlen					; Get string length
+	mov rcx, rdx				; Move length to 3rd param
+	sub rcx, 1					; Subtract to new line
+	call setChar				; Set new line to null char
 
 	pop rdx						; Restore registers
 	pop rsi
@@ -99,9 +116,11 @@ gets:
 
 	ret
 
-;-----------------------------------
+;----------------------------------------------------------------------
 ;	int strcmp(char* a, char* b)
-;-----------------------------------
+;
+;	Compare strings
+;----------------------------------------------------------------------
 strcmp:
 	push rax					; Store registers
 	push rbx
@@ -152,9 +171,11 @@ strcmp:
 	mov rdx, 1					; Return true
 	ret
 
-;-----------------------------------
+;----------------------------------------------------------------------
 ;	void setChar(char* str, char c, int index)
-;-----------------------------------
+;
+;	Set a character of a specified string
+;----------------------------------------------------------------------
 setChar:
 	mov [rax + rcx], rbx		; Set the string pointer offset to char
 	ret

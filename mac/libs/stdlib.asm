@@ -1,9 +1,9 @@
 ; Standard Library
 ; Mac OS X
 
-;-----------------------------------
+;----------------------------------------------------------------------
 ;	SYSTEM CALLS
-;-----------------------------------
+;----------------------------------------------------------------------
 
 SYS_EXIT: equ			0x2000001
 SYS_READ: equ			0x2000003
@@ -88,7 +88,7 @@ sprintNL:
 ;----------------------------------------------------------------------
 ;	void gets(char* dest, int size)
 ;
-;	Get a string from standard input (removes new line)
+;	Get a string from standard input (removes new line (not yet tho))
 ;----------------------------------------------------------------------
 gets:
 	push rax					; Store registers
@@ -101,13 +101,8 @@ gets:
 	mov rdi, 0					; Standard input
 	mov rax, SYS_READ			; System call
 	syscall
-	
-	mov rax, rcx				; Move string
-	mov rbx, 0					; Null char
-	call strlen					; Get string length
-	mov rcx, rdx				; Move length to 3rd param
-	sub rcx, 1					; Subtract to new line
-	call setChar				; Set new line to null char
+
+	; TODO: remove new line
 
 	pop rdx						; Restore registers
 	pop rsi
